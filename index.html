@@ -3,112 +3,207 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abdelaziz Mohamed - Portfolio</title>
+    <title>Abdelaziz Mohamed // Creative Developer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="background-fx"></div>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
 
-    <header>
-        <nav>
-            <div class="logo">
-                <a href="#">A<span>M</span></a>
-            </div>
-            <ul>
-                <li><a href="#about">About</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
+    <!-- Command Menu Structure -->
+    <div class="command-menu" id="command-menu">
+        <div class="command-menu-content">
+            <input type="text" id="command-input" placeholder="Navigate to...">
+            <ul id="command-list">
+                <li><a href="#about" class="command-link"><span>→</span> About Me</a></li>
+                <li><a href="#projects" class="command-link"><span>→</span> Projects</a></li>
+                <li><a href="mailto:abdelaziz.hasaneen@merakistudios.dev" class="command-link"><span>→</span> Contact Me</a></li>
+                <li><a href="https://github.com/Abdelaziz1586" target="_blank" class="command-link"><span>↗</span> GitHub</a></li>
             </ul>
-        </nav>
-        <div class="hero-content hidden">
-            <h1>Abdelaziz Mohamed</h1>
-            <p>Experienced Developer at Meraki Studios</p>
-            <a href="#projects" class="btn btn-primary">View My Work</a>
         </div>
-    </header>
+    </div>
 
-    <main>
-        <section id="about" class="hidden">
-            <div class="container">
-                <h2>About Me</h2>
-                <p>I'm a very experienced developer ready to elevate your projects. With my skills in developing for Minecraft Servers, Backends, Discord Bots, and other Java-related applications, I can help you achieve more than you thought possible.</p>
-            </div>
-        </section>
+    <!-- Project Focus View Overlay -->
+    <div id="project-detail-overlay">
+        <button id="close-detail-btn" class="close-btn">&times;</button>
+        <div class="project-detail-content">
+            <h2 id="detail-title"></h2>
+            <div id="detail-tags" class="tags"></div>
+            <p id="detail-desc"></p>
+            <h3>Key Features:</h3>
+            <ul id="detail-features"></ul>
+            <a href="#" id="detail-link" class="btn-project-link" target="_blank">View Project <span>↗</span></a>
+        </div>
+    </div>
+    
+    <div class="container">
+        <header class="main-header">
+            <nav>
+                <div class="logo">AM.</div>
+                <div class="nav-links">
+                    <a href="#about">About</a>
+                    <a href="#projects">Projects</a>
+                    <a href="mailto:abdelaziz.hasaneen@merakistudios.dev">Contact</a>
+                    <div class="command-hint" id="open-command-menu">⌘K</div>
+                </div>
+            </nav>
+        </header>
 
-        <section id="projects">
-            <div class="container">
-                <h2 class="hidden">My Projects</h2>
-                <div class="project-grid">
-                    <!-- NEW PROJECTS ADDED HERE -->
-                    <div class="project-card hidden">
+        <main>
+            <section class="hero">
+                <div class="hero-content">
+                    <h1>Crafting Digital<br>Experiences</h1>
+                    <p class="subtitle"></p>
+                </div>
+            </section>
+
+            <section class="skills-marquee">
+                <div class="marquee-content">
+                    <span>Java</span><span class="star">✦</span>
+                    <span>Minecraft Plugins</span><span class="star">✦</span>
+                    <span>Backend Systems</span><span class="star">✦</span>
+                    <span>Discord Bots</span><span class="star">✦</span>
+                    <span>Pterodactyl Eggs</span><span class="star">✦</span>
+                    <span>API Development</span><span class="star">✦</span>
+                    <span>Java</span><span class="star">✦</span>
+                    <span>Minecraft Plugins</span><span class="star">✦</span>
+                    <span>Backend Systems</span><span class="star">✦</span>
+                    <span>Discord Bots</span><span class="star">✦</span>
+                    <span>Pterodactyl Eggs</span><span class="star">✦</span>
+                    <span>API Development</span><span class="star">✦</span>
+                </div>
+            </section>
+
+            <section id="projects" class="projects-section">
+                <h2 class="section-title">Featured Projects</h2>
+                <div class="bento-grid">
+                    <div class="bento-item card" 
+                        data-title="MSHJava Hibernation System"
+                        data-desc="A Pterodactyl system built entirely in Java to dramatically lower CPU & RAM usage for Minecraft: Java Edition servers through an advanced hibernation process."
+                        data-features="<li>Reduces server idle costs to near-zero.</li><li>Seamless Pterodactyl egg integration.</li><li>High-performance, low-overhead design.</li>"
+                        data-tags="Java,Pterodactyl,Optimization"
+                        data-link="https://www.sourcexchange.net/products/minecraft-java-hibernation-system">
+                        <i class="fa-brands fa-java card-icon"></i>
                         <h3>MSHJava</h3>
-                        <p>A Pterodactyl system in Java to lower CPU & RAM usage for MC:Java servers.</p>
-                        <a href="https://www.sourcexchange.net/products/minecraft-java-hibernation-system" target="_blank">View Product</a>
-                    </div>
-                    <div class="project-card hidden">
-                        <h3>MSHBedrock</h3>
-                        <p>A Pterodactyl system in Java to lower CPU & RAM usage for MC:Bedrock servers.</p>
-                        <a href="https://www.sourcexchange.net/products/minecraft-bedrock-hibernation-system-25-sale" target="_blank">View Product</a>
-                    </div>
-                    <div class="project-card hidden">
-                        <h3>Guilds Plugin</h3>
-                        <p>A powerful BungeeCord guilds plugin with unlimited customizations, tags, and more.</p>
-                        <a href="https://github.com/Abdelaziz1586/Guilds" target="_blank">View on GitHub</a>
+                        <p>CPU & RAM hibernation system for MC:Java servers.</p>
                     </div>
 
-                    <!-- EXISTING PROJECTS -->
-                    <div class="project-card hidden">
+                    <div class="bento-item card" 
+                        data-title="MSHBedrock Hibernation System"
+                        data-desc="A Pterodactyl system built entirely in Java to dramatically lower CPU & RAM usage for Minecraft: Bedrock Edition servers through an advanced hibernation process."
+                        data-features="<li>Brings resource-saving to the Bedrock ecosystem.</li><li>Easy setup with a custom Pterodactyl egg.</li><li>Maintains server state while hibernating.</li>"
+                        data-tags="Java,Pterodactyl,Bedrock"
+                        data-link="https://www.sourcexchange.net/products/minecraft-bedrock-hibernation-system-25-sale">
+                        <i class="fa-solid fa-gears card-icon"></i>
+                        <h3>MSHBedrock</h3>
+                        <p>CPU & RAM hibernation system for MC:Bedrock servers.</p>
+                    </div>
+
+                    <div class="bento-item card" 
+                        data-title="Guilds Minecraft Plugin"
+                        data-desc="A powerful BungeeCord guilds plugin designed for scalability and deep customization, allowing server owners to create unique community experiences."
+                        data-features="<li>Unlimited customization options.</li><li>Built-in invitation and tag systems.</li><li>Optimized for BungeeCord networks.</li>"
+                        data-tags="BungeeCord,Java,Minecraft"
+                        data-link="https://github.com/Abdelaziz1586/Guilds">
+                        <i class="fa-solid fa-shield-halved card-icon"></i>
+                        <h3>Guilds Plugin</h3>
+                        <p>A BungeeCord guilds plugin with unlimited customizations.</p>
+                    </div>
+
+                    <div class="bento-item card" 
+                        data-title="PebbleAntiVPN Rework"
+                        data-desc="A high-quality, free, and robust anti-VPN plugin for Minecraft servers, designed to detect and block malicious connections from VPNs, Proxies, and TOR networks."
+                        data-features="<li>Intelligent detection heuristics.</li><li>Highly configurable to fit any server's needs.</li><li>Lightweight and performance-focused.</li>"
+                        data-tags="Spigot,Security,Java"
+                        data-link="https://www.spigotmc.org/resources/pebbleanti-vpn-high-quality-free-anti-vpn.92711/">
+                        <i class="fa-solid fa-user-secret card-icon"></i>
                         <h3>PebbleAntiVPN Rework</h3>
-                        <p>A high-quality, free anti-VPN plugin for Minecraft servers.</p>
-                        <a href="https://www.spigotmc.org/resources/pebbleanti-vpn-high-quality-free-anti-vpn.92711/" target="_blank">View Project</a>
+                        <p>High-quality, free anti-VPN plugin for Minecraft.</p>
                     </div>
-                    <div class="project-card hidden">
+                    
+                    <div class="bento-item card" 
+                        data-title="WorldChatter"
+                        data-desc="One of the most comprehensive and feature-rich chatting plugins available on the SpigotMC market, offering unparalleled control over server communication."
+                        data-features="<li>Extensive formatting and channel options.</li><li>Developer API for easy integration.</li><li>Highly performant for large servers.</li>"
+                        data-tags="Minecraft,API,Spigot"
+                        data-link="https://github.com/OmarOmar93/WorldChatter">
+                        <i class="fa-solid fa-comments card-icon"></i>
                         <h3>WorldChatter</h3>
-                        <p>One of the best chatting plugins on the SpigotMC market.</p>
-                        <a href="https://github.com/OmarOmar93/WorldChatter" target="_blank">View Project</a>
+                        <p>A feature-rich chatting plugin for Spigot.</p>
                     </div>
-                    <div class="project-card hidden">
+                    
+                    <div class="bento-item card" 
+                        data-title="LiarsTable"
+                        data-desc="A unique and engaging multiplayer card game developed from scratch and implemented within the Minecraft environment, showcasing creative gameplay engineering."
+                        data-features="<li>Custom game logic and UI.</li><li>Multiplayer-ready architecture.</li><li>Interactive and visually polished gameplay.</li>"
+                        data-tags="Minecraft,GameDev,Java"
+                        data-link="https://youtu.be/lQrCyVOHZhk">
+                        <i class="fa-solid fa-puzzle-piece card-icon"></i>
                         <h3>LiarsTable</h3>
-                        <p>A unique and engaging multiplayer card game developed for Minecraft.</p>
-                        <a href="https://www.youtube.com/watch?v=k-F-Ab7p_yA" target="_blank">Watch Demo</a>
+                        <p>An engaging multiplayer card game in Minecraft.</p>
                     </div>
-                    <div class="project-card hidden">
-                        <h3>Nitro-ify Discord Bot</h3>
-                        <p>A powerful Discord bot for managing Nitro-related services.</p>
-                        <a href="https://www.youtube.com/watch?v=q6e-ZpA9-xw" target="_blank">Watch Demo</a>
+
+                    <div class="bento-item card" 
+                        data-title="Nitro-ify Discord Bot"
+                        data-desc="A powerful and reliable Discord bot designed to manage and automate Nitro-related services and perks within a community server, built with the JDA library."
+                        data-features="<li>Automated role and perk management.</li><li>Secure and user-friendly command interface.</li><li>Built with the robust Java Discord API (JDA).</li>"
+                        data-tags="Java,JDA,Discord"
+                        data-link="https://www.youtube.com/watch?v=JL9WowuYoYw">
+                        <i class="fa-brands fa-java card-icon"></i>
+                        <h3>Nitro-ify Bot</h3>
+                        <p>A Discord bot for managing Nitro services.</p>
                     </div>
-                    <div class="project-card hidden">
+
+                    <div class="bento-item card" 
+                        data-title="Enhanced PvP"
+                        data-desc="A comprehensive PvP plugin that goes beyond simple combat, adding layers of engagement with missions, quests, cosmetic trails, and deep Discord integration."
+                        data-features="<li>Quest and Mission system for player retention.</li><li>Discord bot linkage for stats and notifications.</li><li>Cosmetic trails and rewards.</li>"
+                        data-tags="Java,Minecraft,Discord"
+                        data-link="https://github.com/Abdelaziz1586/StrongMCPvP">
+                        <i class="fa-solid fa-gavel card-icon"></i>
                         <h3>Enhanced PvP</h3>
-                        <p>A PvP plugin with missions, quests, trails, Discord Bot linkage, and more.</p>
-                        <a href="https://github.com/Abdelaziz1586/StrongMCPvP" target="_blank">View on GitHub</a>
+                        <p>A PvP plugin with quests, trails, and Discord linkage.</p>
                     </div>
-                    <div class="project-card hidden">
+
+                    <div class="bento-item card" 
+                        data-title="PebbleAPI"
+                        data-desc="A custom-built API that serves as the backbone for various Meraki Studios services, designed for high availability and low latency."
+                        data-features="<li>RESTful architecture for easy consumption.</li><li>Built for high-throughput scenarios.</li><li>Powers multiple public-facing projects.</li>"
+                        data-tags="API,Backend,Java"
+                        data-link="https://pav.merakistudios.dev">
+                        <i class="fa-solid fa-server card-icon"></i>
                         <h3>PebbleAPI</h3>
-                        <p>An API for developers to interact with Pebble services.</p>
-                        <a href="https://pav.merakistudios.dev" target="_blank">View Project</a>
+                        <p>A high-availability API for developer services.</p>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+            
+            <section id="about" class="about-section">
+                <div class="about-content">
+                    <h2 class="section-title">Digital Craftsman</h2>
+                    <p>My name is Abdelaziz Mohamed, an experienced developer at Meraki Studios. I don't just write code; I build robust, efficient, and scalable solutions. From optimizing Minecraft server performance to architecting complex backend systems, my passion is turning ambitious ideas into reality. Let's build something incredible together.</p>
+                </div>
+            </section>
 
-        <section id="contact" class="hidden">
-            <div class="container">
-                <h2>Get In Touch</h2>
-                <p>I'm always open to discussing new projects and opportunities. I would love to work with Minecraft Servers and help make them bigger!</p>
-                <a href="mailto:abdelaziz.hasaneen@merakistudios.dev" class="btn btn-primary">Email Me</a>
-            </div>
-        </section>
-    </main>
+        </main>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 Abdelaziz Mohamed. All Rights Reserved.</p>
-        </div>
-    </footer>
+        <footer id="contact">
+             <h2 class="section-title">Let's Connect</h2>
+             <p>Have a project in mind or an opportunity to discuss? Reach out.</p>
+             <a href="mailto:abdelaziz.hasaneen@merakistudios.dev" class="email-link">abdelaziz.hasaneen@merakistudios.dev</a>
+             <div class="footer-bottom">
+                 <p>&copy; 2025 Abdelaziz Mohamed</p>
+             </div>
+        </footer>
+    </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
