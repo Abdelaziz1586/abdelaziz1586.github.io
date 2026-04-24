@@ -12,6 +12,18 @@ const PROJECTS = [
     linkLabel: "View on GitHub",
   },
   {
+    title: "DHelper",
+    tags: ["Java", "Persistence", "ORM"],
+    description: "A Java persistence helper that removes the repetitive parts of data access, allowing you to build your data layer once and switch storage backends without rewriting CRUD logic.",
+    features: [
+      "Unified async CRUD API via DataHandler",
+      "Supports SQL, MongoDB, and file-based storage (JSON/YAML/HOCON/TOML)",
+      "Annotation-driven mapping with built-in caching",
+    ],
+    link: "https://github.com/Abdelaziz1586/DHelper",
+    linkLabel: "View on GitHub",
+  },
+  {
     title: "MSHJava Hibernation System",
     tags: ["Java", "Pterodactyl", "Optimization"],
     description: "A Pterodactyl system built entirely in Java to dramatically lower CPU & RAM usage for Minecraft: Java Edition servers through an advanced hibernation process.",
