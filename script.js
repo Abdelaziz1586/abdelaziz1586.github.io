@@ -104,7 +104,7 @@ const PROJECTS = [
       "Multiplayer-ready architecture",
       "Interactive and visually polished gameplay",
     ],
-    link: "",
+    link: "https://youtu.be/lQrCyVOHZhk?si=x5_hd8ZbsGvjCO8b",
     linkLabel: "Watch Demo",
   },
   {
