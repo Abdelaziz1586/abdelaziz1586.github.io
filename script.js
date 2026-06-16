@@ -116,7 +116,7 @@ const PROJECTS = [
       "Secure and user-friendly command interface",
       "Built with the robust Java Discord API (JDA)",
     ],
-    link: "",
+    link: "https://www.youtube.com/watch?v=JL9WowuYoYw",
     linkLabel: "Watch Demo",
   },
   {
