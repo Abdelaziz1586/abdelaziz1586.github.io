@@ -1,5 +1,5 @@
 const SITE = {
-  email: "abdelaziz.hasaneen@merakistudios.dev",
+  email: "work@abdelazizmohamed.me",
   github: "https://github.com/Abdelaziz1586",
   navigation: [
     { label: "Setups", href: "#server-setups" },
