@@ -1,124 +1,208 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Abdelaziz Mohamed — Developer</title>
-  <meta name="description" content="Backend Developer & Systems Architect at Meraki Studios. Building robust, efficient, and scalable solutions.">
+  <title>Abdelaziz Mohamed | Backend Developer</title>
+  <meta name="description" content="Backend developer and systems architect building robust, efficient, and scalable platforms for Minecraft infrastructure, APIs, Discord bots, and Java systems.">
+  <meta name="theme-color" content="#f6f8fb">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-  <div class="noise" aria-hidden="true"></div>
+  <header class="site-header" id="site-header">
+    <nav class="site-nav" aria-label="Main navigation">
+      <a class="brand" href="#hero" aria-label="Abdelaziz Mohamed home">
+        <span class="brand-mark" aria-hidden="true">
+          <img src="logo.png" alt="">
+        </span>
+        <span class="brand-copy">
+          <span class="brand-name">Abdelaziz Mohamed</span>
+          <span class="brand-role">Backend Developer</span>
+        </span>
+      </a>
 
-  <nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
-    <div class="nav-inner">
-      <a href="#" class="nav-logo" aria-label="Home">AM<span class="accent">.</span></a>
-      <div class="nav-links">
-        <a href="#work">Work</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-        <a href="https://github.com/Abdelaziz1586" target="_blank" rel="noopener" class="nav-github">GitHub ↗</a>
+      <div class="nav-links" id="nav-links"></div>
+
+      <div class="nav-actions">
+        <a class="nav-contact" href="mailto:abdelaziz.hasaneen@merakistudios.dev">Email</a>
+        <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+          <span></span>
+          <span></span>
+        </button>
       </div>
-      <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false">
-        <span></span><span></span>
-      </button>
+    </nav>
+
+    <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+      <div class="mobile-menu-inner" id="mobile-links"></div>
     </div>
-    <div class="nav-mobile" id="nav-mobile" aria-hidden="true">
-      <a href="#work">Work</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
-      <a href="https://github.com/Abdelaziz1586" target="_blank" rel="noopener">GitHub ↗</a>
-    </div>
-  </nav>
+  </header>
 
-  <section class="hero" id="hero" aria-label="Introduction">
-    <div class="hero-glow" aria-hidden="true"></div>
+  <main id="main">
+    <section class="hero" id="hero" aria-labelledby="hero-title">
+      <div class="section-container hero-layout">
+        <div class="hero-copy">
+          <p class="eyebrow">
+            <span class="status-light" aria-hidden="true"></span>
+            Available for performance-focused projects
+          </p>
+          <h1 id="hero-title">Building server systems that stay fast under pressure.</h1>
+          <p class="hero-lede">I design backend platforms, Minecraft infrastructure, Discord automation, and Java tools with a focus on reliability, speed, and clean long-term architecture.</p>
 
-    <div class="hero-label">
-      <span class="status-dot" aria-hidden="true"></span>
-      <span class="mono">Available for projects</span>
-    </div>
+          <div class="hero-actions" aria-label="Primary actions">
+            <a class="button button-primary" href="#work">Explore work</a>
+            <a class="button button-secondary" href="#contact">Start a project</a>
+          </div>
 
-    <h1 class="hero-title">
-      <span class="line">CRAFTING</span>
-      <span class="line outline">DIGITAL</span>
-      <span class="line">EXPERIENCES</span>
-    </h1>
+          <div class="hero-stats" id="hero-stats" aria-label="Highlights"></div>
+        </div>
 
-    <div class="hero-sub">
-      <p class="mono hero-role">Backend Developer &amp; Systems Architect</p>
-      <p class="hero-bio">Building robust, efficient, and scalable solutions — from Minecraft server optimization to complex backend systems.</p>
-    </div>
+        <aside class="identity-board" aria-label="Professional snapshot">
+          <div class="identity-head">
+            <img class="identity-logo" src="logo.png" alt="AM monogram">
+            <div>
+              <p class="mono-label">Meraki Studios</p>
+              <h2>Systems architect for demanding communities.</h2>
+            </div>
+          </div>
 
-    <a href="#work" class="hero-cta" aria-label="View my work">
-      <span>View Work</span>
-      <span class="cta-arrow" aria-hidden="true">↓</span>
-    </a>
+          <div class="terminal-window" aria-label="System status">
+            <div class="terminal-bar" aria-hidden="true">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <pre><code id="terminal-lines"></code></pre>
+          </div>
 
-    <div class="hero-scroll-hint" aria-hidden="true">
-      <span class="mono">Scroll</span>
-      <div class="scroll-line"></div>
-    </div>
-  </section>
+          <div class="identity-grid" id="identity-metrics"></div>
+        </aside>
+      </div>
 
-  <div class="marquee-section" aria-hidden="true">
-    <div class="marquee-track">
-      <div class="marquee-content" id="marquee-content"></div>
-    </div>
-  </div>
-
-  <section class="section" id="work" aria-label="Featured projects">
-    <div class="section-header reveal">
-      <span class="mono section-label">01 — Work</span>
-      <h2 class="section-title">Featured Projects</h2>
-    </div>
-    <div class="projects-list" id="projects-container" role="list"></div>
-  </section>
-
-  <section class="section" id="about" aria-label="About me">
-    <div class="section-header reveal">
-      <span class="mono section-label">02 — About</span>
-      <h2 class="section-title">Digital Craftsman</h2>
-    </div>
-    <div class="about-grid">
-      <div class="about-text reveal">
-        <p>My name is <strong>Abdelaziz Mohamed</strong>, an experienced developer at <strong>Meraki Studios</strong>. I don't just write code — I build robust, efficient, and scalable solutions.</p>
-        <p>From optimizing Minecraft server performance to architecting complex backend systems, my passion is turning ambitious ideas into reality. Let's build something incredible together.</p>
-        <div class="about-links">
-          <a href="https://github.com/Abdelaziz1586" target="_blank" rel="noopener" class="about-link">GitHub ↗</a>
-          <a href="mailto:abdelaziz.hasaneen@merakistudios.dev" class="about-link">Email ↗</a>
+      <div class="section-container">
+        <div class="ticker" aria-label="Core technologies">
+          <div class="ticker-track" id="ticker-track"></div>
         </div>
       </div>
-      <div class="skills-grid reveal" id="skills-grid" aria-label="Technical skills"></div>
-    </div>
-  </section>
+    </section>
 
-  <section class="section" id="contact" aria-label="Contact">
-    <div class="section-header reveal">
-      <span class="mono section-label">03 — Contact</span>
-    </div>
-    <div class="contact-cta reveal">
-      <h2 class="contact-title">
-        LET'S<br>
-        BUILD<br>
-        <span class="outline-text">TOGETHER</span>
-      </h2>
-      <a href="mailto:abdelaziz.hasaneen@merakistudios.dev" class="email-btn">
-        <span>abdelaziz.hasaneen@merakistudios.dev</span>
-        <span class="email-arrow" aria-hidden="true">↗</span>
-      </a>
-    </div>
-  </section>
+    <section class="section setups-section" id="server-setups" aria-labelledby="setups-title">
+      <div class="section-container">
+        <div class="section-heading reveal">
+          <p class="section-kicker">Minecraft Server Setups</p>
+          <div>
+            <h2 id="setups-title">Launch-ready server experiences, built to scale.</h2>
+            <p>Complete Minecraft setups that combine custom gameplay systems, polished player flows, and infrastructure decisions that help owners launch with confidence.</p>
+          </div>
+        </div>
 
-  <footer class="footer" role="contentinfo">
-    <div class="footer-inner">
-      <span class="mono footer-copy">© 2026 Abdelaziz Mohamed</span>
-      <a href="https://github.com/Abdelaziz1586" target="_blank" rel="noopener" class="mono footer-gh">GitHub ↗</a>
+        <div class="setups-list" id="server-setups-container"></div>
+      </div>
+    </section>
+
+    <section class="section discord-section" id="discord-setups" aria-labelledby="discord-title">
+      <div class="section-container">
+        <div class="section-heading reveal">
+          <p class="section-kicker">Discord Setups</p>
+          <div>
+            <h2 id="discord-title">Bot-supported communities that stay organized.</h2>
+            <p>Discord servers where custom bots and automation helped power the operational side of the community: onboarding, game-adjacent workflows, moderation support, and smoother member experiences.</p>
+          </div>
+        </div>
+
+        <div class="discord-grid" id="discord-setups-container"></div>
+      </div>
+    </section>
+
+    <section class="section" id="work" aria-labelledby="work-title">
+      <div class="section-container">
+        <div class="section-heading reveal">
+          <p class="section-kicker">Selected work</p>
+          <div>
+            <h2 id="work-title">Systems, tools, and game infrastructure.</h2>
+            <p>Each project is built around practical outcomes: lower idle costs, cleaner persistence, safer communities, faster gameplay systems, or better automation.</p>
+          </div>
+        </div>
+
+        <div class="filter-bar reveal d1" id="project-filters" aria-label="Filter projects"></div>
+        <div class="project-grid" id="projects-container" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="section section-muted" id="capabilities" aria-labelledby="capabilities-title">
+      <div class="section-container">
+        <div class="section-heading reveal">
+          <p class="section-kicker">Capabilities</p>
+          <div>
+            <h2 id="capabilities-title">A focused stack for scalable products.</h2>
+            <p>From the first architecture decision to production tuning, the work stays direct, measurable, and maintainable.</p>
+          </div>
+        </div>
+
+        <div class="capability-grid" id="capability-grid"></div>
+      </div>
+    </section>
+
+    <section class="section" id="about" aria-labelledby="about-title">
+      <div class="section-container about-layout">
+        <div class="about-copy reveal">
+          <p class="section-kicker">About</p>
+          <h2 id="about-title">Clean backend engineering with a builder's mindset.</h2>
+          <p>My name is Abdelaziz Mohamed, an experienced developer at Meraki Studios. I build robust, efficient, and scalable solutions - from Minecraft server optimization to complex backend systems.</p>
+          <p>My favorite work sits where performance, developer experience, and product usefulness meet. The goal is not just to ship code, but to leave behind systems that are easy to operate and ready to grow.</p>
+        </div>
+
+        <div class="experience-panel reveal d2">
+          <div class="panel-head">
+            <p class="mono-label">Operating style</p>
+            <span>2026</span>
+          </div>
+          <div class="experience-list" id="experience-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-compact" id="stack" aria-labelledby="stack-title">
+      <div class="section-container">
+        <div class="section-heading reveal">
+          <p class="section-kicker">Stack</p>
+          <div>
+            <h2 id="stack-title">Technologies I reach for often.</h2>
+            <p>The stack is intentionally practical: proven tools, simple integration paths, and enough flexibility for unusual server-side problems.</p>
+          </div>
+        </div>
+
+        <div class="skill-groups" id="skills-grid"></div>
+      </div>
+    </section>
+
+    <section class="contact-section" id="contact" aria-labelledby="contact-title">
+      <div class="section-container contact-layout reveal">
+        <div>
+          <p class="section-kicker">Contact</p>
+          <h2 id="contact-title">Have a system that needs to be faster, cleaner, or easier to run?</h2>
+        </div>
+        <div class="contact-card">
+          <p>Tell me what you are building and where the current bottleneck is. I can help turn the idea into a reliable backend plan or implementation.</p>
+          <div class="contact-actions">
+            <a class="button button-primary" href="mailto:abdelaziz.hasaneen@merakistudios.dev">Send email</a>
+            <a class="button button-invert" href="https://github.com/Abdelaziz1586" target="_blank" rel="noopener">GitHub</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="section-container footer-inner">
+      <p>&copy; <span id="current-year">2026</span> Abdelaziz Mohamed. Built for clarity and speed.</p>
+      <a href="#hero">Back to top</a>
     </div>
   </footer>
 
