@@ -8,6 +8,7 @@ const SITE = {
     { label: "Capabilities", href: "#capabilities" },
     { label: "About", href: "#about" },
     { label: "Stack", href: "#stack" },
+    { label: "Reviews", href: "#testimonials" },
     { label: "Contact", href: "#contact" },
   ],
   stats: [
@@ -372,6 +373,40 @@ const SKILL_GROUPS = [
   },
 ];
 
+/* ------------------------------------------------------------------
+   TESTIMONIALS — placeholder content, fully customizable.
+   To edit: change name / role / company / quote / rating below.
+   avatar: leave as null to auto-generate an initials placeholder,
+   or set it to an image path/URL (e.g. "assets/reviews/jane.jpg")
+   to use a real profile photo instead.
+------------------------------------------------------------------- */
+const TESTIMONIALS = [
+  {
+    name: "Spark Customer",
+    role: "Server Owner",
+    company: "Unknown",
+    quote: "The process was effective, quick and straightforward, they got to work as soon as I commissioned the piece and got it done quickly!!",
+    rating: 5,
+    avatar: "https://images-ext-1.discordapp.net/external/gUNqCfvJfC-LYxBOTtF1vwMjZQVLXwEayqBznuwZZtU/https/cdn.discordapp.com/avatars/1036670560106725506/e858a6aac6cbaf5e33529575345a18ba.webp?format=webp"
+  },
+  {
+    name: "Daycarrot",
+    role: "Server Owner",
+    company: "Funblock SMP",
+    quote: "+rep",
+    rating: 5,
+    avatar: "https://images-ext-1.discordapp.net/external/4xjRoXNufbjGXZz5qZewyVmmSOaOC9NyiELmCY_VjR4/https/cdn.discordapp.com/avatars/284311631364751360/a_5f2fac3e5adfb2f1e4fc414bc00861d0.gif",
+  },
+  {
+    name: "Mike Olyerhoek",
+    role: "Founder",
+    company: "FreezeHost",
+    quote: "Works perfectly! I can host 2000 servers on a single node thanks to MSH. Msh basically just turns off the server when no one is online, then turns back on when someone joins, its PERFECT!",
+    rating: 5,
+    avatar: "https://cdn.discordapp.com/avatars/728156032022347826/a4172fc214eea1379c209a659be3d775.webp?size=80",
+  }
+];
+
 const ESCAPE_MAP = {
   "&": "&amp;",
   "<": "&lt;",
@@ -380,8 +415,20 @@ const ESCAPE_MAP = {
   "'": "&#039;",
 };
 
+const AVATAR_PALETTE = [
+  ["#ff5a2e", "#ff9466"],
+  ["#33e08a", "#8ff0bb"],
+  ["#4d7cff", "#8fb0ff"],
+  ["#c98bff", "#e6c8ff"],
+  ["#ffb23e", "#ffd28a"],
+  ["#33c7e0", "#8fe4f0"],
+];
+
 let activeFilter = "All";
 let revealObserver = null;
+let countObserver = null;
+let testimonialIndex = 0;
+let testimonialTimer = null;
 
 function escapeHtml(value) {
   return String(value).replace(/[&<>"']/g, (char) => ESCAPE_MAP[char]);
@@ -390,6 +437,52 @@ function escapeHtml(value) {
 function getElement(id) {
   return document.getElementById(id);
 }
+
+/* ============================== Avatar placeholder generator ============================== */
+
+function hashString(value) {
+  let hash = 0;
+  for (let i = 0; i < value.length; i += 1) {
+    hash = (hash << 5) - hash + value.charCodeAt(i);
+    hash |= 0;
+  }
+  return Math.abs(hash);
+}
+
+function getInitials(name) {
+  const parts = name.trim().split(/\s+/);
+  const initials = parts.slice(0, 2).map((part) => part[0] || "").join("");
+  return initials.toUpperCase() || "?";
+}
+
+function generateAvatarDataUri(name) {
+  const hash = hashString(name);
+  const [colorA, colorB] = AVATAR_PALETTE[hash % AVATAR_PALETTE.length];
+  const initials = getInitials(name);
+  const gradientId = `g${hash}`;
+
+  const svg = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160">
+      <defs>
+        <linearGradient id="${gradientId}" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="${colorA}" />
+          <stop offset="100%" stop-color="${colorB}" />
+        </linearGradient>
+      </defs>
+      <rect width="160" height="160" rx="80" fill="#14161a" />
+      <circle cx="80" cy="80" r="72" fill="url(#${gradientId})" opacity="0.9" />
+      <text x="80" y="97" font-family="Space Grotesk, Arial, sans-serif" font-size="56" font-weight="600" fill="#0a0a0a" text-anchor="middle">${initials}</text>
+    </svg>
+  `.trim();
+
+  return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
+}
+
+function resolveAvatarSrc(testimonial) {
+  return testimonial.avatar ? testimonial.avatar : generateAvatarDataUri(testimonial.name);
+}
+
+/* ============================== Nav ============================== */
 
 function renderNav() {
   const desktop = getElement("nav-links");
@@ -414,13 +507,15 @@ function renderNavLink(link) {
   return `<a class="nav-link" href="${escapeHtml(link.href)}"${target}>${escapeHtml(link.label)}</a>`;
 }
 
+/* ============================== Hero ============================== */
+
 function renderHeroStats() {
   const stats = getElement("hero-stats");
   if (!stats) return;
 
   stats.innerHTML = SITE.stats.map((stat) => `
     <div class="stat-tile">
-      <span class="stat-value">${escapeHtml(stat.value)}</span>
+      <span class="stat-value" data-count-target="${escapeHtml(stat.value)}">0</span>
       <span class="stat-label">${escapeHtml(stat.label)}</span>
     </div>
   `).join("");
@@ -453,6 +548,8 @@ function renderTicker() {
     <span class="ticker-item">${escapeHtml(item)}</span>
   `).join("");
 }
+
+/* ============================== Server setups ============================== */
 
 function renderServerSetups() {
   const container = getElement("server-setups-container");
@@ -504,6 +601,8 @@ function renderServerSetup(setup, index) {
   `;
 }
 
+/* ============================== Discord ============================== */
+
 function renderDiscordSetups() {
   const container = getElement("discord-setups-container");
   if (!container) return;
@@ -537,6 +636,8 @@ function renderDiscordSetups() {
     </article>
   `).join("");
 }
+
+/* ============================== Projects ============================== */
 
 function renderFilters() {
   const filters = getElement("project-filters");
@@ -624,6 +725,22 @@ function bindProjectDetails() {
   });
 }
 
+function initFilters() {
+  const filters = getElement("project-filters");
+  if (!filters) return;
+
+  filters.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-filter]");
+    if (!button) return;
+
+    activeFilter = button.dataset.filter;
+    renderFilters();
+    renderProjects();
+  });
+}
+
+/* ============================== Capabilities / experience / skills ============================== */
+
 function renderCapabilities() {
   const grid = getElement("capability-grid");
   if (!grid) return;
@@ -669,19 +786,135 @@ function renderSkills() {
   `).join("");
 }
 
-function initFilters() {
-  const filters = getElement("project-filters");
-  if (!filters) return;
+/* ============================== Testimonials carousel ============================== */
 
-  filters.addEventListener("click", (event) => {
-    const button = event.target.closest("[data-filter]");
-    if (!button) return;
+function renderStars(rating) {
+  const full = '<svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 1.5l2.6 5.6 6.1.6-4.6 4.2 1.3 6-5.4-3-5.4 3 1.3-6-4.6-4.2 6.1-.6z"/></svg>';
+  const empty = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M10 1.5l2.6 5.6 6.1.6-4.6 4.2 1.3 6-5.4-3-5.4 3 1.3-6-4.6-4.2 6.1-.6z"/></svg>';
+  return Array.from({ length: 5 }, (_, i) => (i < rating ? full : empty)).join("");
+}
 
-    activeFilter = button.dataset.filter;
-    renderFilters();
-    renderProjects();
+function renderTestimonials() {
+  const track = getElement("testimonial-track");
+  const dots = getElement("testimonial-dots");
+  if (!track || !dots) return;
+
+  track.innerHTML = TESTIMONIALS.map((item) => `
+    <div class="testimonial-slide" role="group" aria-roledescription="slide">
+      <div class="testimonial-card">
+        <img class="testimonial-avatar" src="${resolveAvatarSrc(item)}" alt="${escapeHtml(item.name)} profile photo" loading="lazy">
+        <div class="testimonial-body">
+          <span class="testimonial-quote-mark" aria-hidden="true">&ldquo;</span>
+          <p class="testimonial-quote">${escapeHtml(item.quote)}</p>
+          <div class="testimonial-meta">
+            <div class="testimonial-person">
+              <strong>${escapeHtml(item.name)}</strong>
+              <span>${escapeHtml(item.role)} · ${escapeHtml(item.company)}</span>
+            </div>
+            <div class="testimonial-rating" aria-label="${item.rating} out of 5 stars">
+              ${renderStars(item.rating)}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `).join("");
+
+  dots.innerHTML = TESTIMONIALS.map((_, index) => `
+    <button class="testimonial-dot${index === 0 ? " is-active" : ""}" type="button" data-index="${index}" role="tab" aria-label="Show review ${index + 1}"></button>
+  `).join("");
+}
+
+function updateTestimonialPosition() {
+  const track = getElement("testimonial-track");
+  if (!track) return;
+  track.style.transform = `translateX(-${testimonialIndex * 100}%)`;
+
+  document.querySelectorAll(".testimonial-dot").forEach((dot, index) => {
+    dot.classList.toggle("is-active", index === testimonialIndex);
   });
 }
+
+function goToTestimonial(index) {
+  const count = TESTIMONIALS.length;
+  testimonialIndex = ((index % count) + count) % count;
+  updateTestimonialPosition();
+}
+
+function startTestimonialAutoplay() {
+  stopTestimonialAutoplay();
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (prefersReducedMotion || TESTIMONIALS.length <= 1) return;
+
+  testimonialTimer = window.setInterval(() => {
+    goToTestimonial(testimonialIndex + 1);
+  }, 5500);
+}
+
+function stopTestimonialAutoplay() {
+  if (testimonialTimer) {
+    window.clearInterval(testimonialTimer);
+    testimonialTimer = null;
+  }
+}
+
+function initTestimonials() {
+  const viewport = getElement("testimonial-viewport");
+  const prev = getElement("testimonial-prev");
+  const next = getElement("testimonial-next");
+  const dots = getElement("testimonial-dots");
+  const shell = document.querySelector(".testimonial-shell");
+  if (!viewport || !shell) return;
+
+  updateTestimonialPosition();
+
+  prev.addEventListener("click", () => {
+    goToTestimonial(testimonialIndex - 1);
+    startTestimonialAutoplay();
+  });
+
+  next.addEventListener("click", () => {
+    goToTestimonial(testimonialIndex + 1);
+    startTestimonialAutoplay();
+  });
+
+  dots.addEventListener("click", (event) => {
+    const dot = event.target.closest("[data-index]");
+    if (!dot) return;
+    goToTestimonial(Number(dot.dataset.index));
+    startTestimonialAutoplay();
+  });
+
+  shell.addEventListener("mouseenter", stopTestimonialAutoplay);
+  shell.addEventListener("mouseleave", startTestimonialAutoplay);
+  shell.addEventListener("focusin", stopTestimonialAutoplay);
+  shell.addEventListener("focusout", startTestimonialAutoplay);
+
+  // Touch swipe support
+  let touchStartX = 0;
+  let touchDeltaX = 0;
+
+  viewport.addEventListener("touchstart", (event) => {
+    touchStartX = event.touches[0].clientX;
+    touchDeltaX = 0;
+    stopTestimonialAutoplay();
+  }, { passive: true });
+
+  viewport.addEventListener("touchmove", (event) => {
+    touchDeltaX = event.touches[0].clientX - touchStartX;
+  }, { passive: true });
+
+  viewport.addEventListener("touchend", () => {
+    if (Math.abs(touchDeltaX) > 40) {
+      goToTestimonial(testimonialIndex + (touchDeltaX < 0 ? 1 : -1));
+    }
+    startTestimonialAutoplay();
+  });
+
+  startTestimonialAutoplay();
+}
+
+/* ============================== Header / menu ============================== */
 
 function initHeader() {
   const header = getElement("site-header");
@@ -726,6 +959,8 @@ function initMenu() {
   });
 }
 
+/* ============================== Scroll reveal ============================== */
+
 function initReveal() {
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -759,6 +994,98 @@ function observeRevealTargets() {
   });
 }
 
+/* ============================== Animated stat counters ============================== */
+
+function animateCounter(element) {
+  const raw = element.dataset.countTarget || "";
+  const match = raw.match(/^(\d+)(.*)$/);
+
+  if (!match) {
+    element.textContent = raw;
+    return;
+  }
+
+  const target = parseInt(match[1], 10);
+  const suffix = match[2] || "";
+  const duration = 1100;
+  const start = performance.now();
+
+  function tick(now) {
+    const progress = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const current = Math.round(target * eased);
+    element.textContent = `${current}${suffix}`;
+
+    if (progress < 1) {
+      requestAnimationFrame(tick);
+    }
+  }
+
+  requestAnimationFrame(tick);
+}
+
+function initCounters() {
+  const targets = document.querySelectorAll("[data-count-target]");
+  if (!targets.length) return;
+
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (prefersReducedMotion || !("IntersectionObserver" in window)) {
+    targets.forEach((element) => {
+      element.textContent = element.dataset.countTarget;
+    });
+    return;
+  }
+
+  countObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          animateCounter(entry.target);
+          countObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.6 }
+  );
+
+  targets.forEach((element) => countObserver.observe(element));
+}
+
+/* ============================== Hero parallax ============================== */
+
+function initParallax() {
+  const bg = getElement("hero-bg");
+  const hero = getElement("hero");
+  if (!bg || !hero) return;
+
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (prefersReducedMotion) return;
+
+  let ticking = false;
+
+  const update = () => {
+    const heroHeight = hero.offsetHeight;
+    const scrollY = window.scrollY;
+
+    if (scrollY < heroHeight * 1.3) {
+      const offset = scrollY * 0.18;
+      bg.style.transform = `translateY(${offset}px)`;
+    }
+
+    ticking = false;
+  };
+
+  window.addEventListener("scroll", () => {
+    if (!ticking) {
+      requestAnimationFrame(update);
+      ticking = true;
+    }
+  }, { passive: true });
+}
+
+/* ============================== Misc ============================== */
+
 function setCurrentYear() {
   const year = getElement("current-year");
   if (year) {
@@ -778,10 +1105,14 @@ document.addEventListener("DOMContentLoaded", () => {
   renderCapabilities();
   renderExperience();
   renderSkills();
+  renderTestimonials();
 
   initFilters();
   initHeader();
   initMenu();
   initReveal();
+  initCounters();
+  initParallax();
+  initTestimonials();
   setCurrentYear();
 });
