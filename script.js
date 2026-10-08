@@ -395,7 +395,7 @@ const TESTIMONIALS = [
     company: "Funblock SMP",
     quote: "+rep",
     rating: 5,
-    avatar: "https://images-ext-1.discordapp.net/external/4xjRoXNufbjGXZz5qZewyVmmSOaOC9NyiELmCY_VjR4/https/cdn.discordapp.com/avatars/284311631364751360/a_5f2fac3e5adfb2f1e4fc414bc00861d0.gif",
+    avatar: "https://cdn.discordapp.com/avatars/284311631364751360/af0bddf404efe5fc10cd0d3664e1c411.webp?size=80",
   },
   {
     name: "SirMak",
