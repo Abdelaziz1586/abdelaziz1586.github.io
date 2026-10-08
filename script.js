@@ -403,7 +403,7 @@ const TESTIMONIALS = [
     company: "Spark's Customer",
     rating: 5,
     quote: "CZY BINKIE was great to work with. Created exactly what I needed in a very timely manner. Great work",
-    avatar: "https://images-ext-1.discordapp.net/external/rV7GHl1cFa4NPUqfNRp1M3Q3VAxmQLkO7UbKXDA1pyg/https/cdn.discordapp.com/avatars/220914778359595010/ba0467025fcf473d0801ce7bf25b1709.webp?format=webp&width=115&height=115"
+    avatar: "https://cdn.discordapp.com/avatars/220914778359595010/ba0467025fcf473d0801ce7bf25b1709.webp?size=80"
   },
   {
     name: "Mike Olyerhoek",
